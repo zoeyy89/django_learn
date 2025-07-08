@@ -19,5 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('board.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),  # ✅ 加上這一行
+    path('', include('board.urls')),  # 你的留言板 app
 ]
