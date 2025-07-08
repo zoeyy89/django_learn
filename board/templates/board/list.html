@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>留言板</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 40px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            background-color: #fff;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .message strong {
+            color: #007BFF;
+        }
+
+        .message small {
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>留言板</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        <label>名字：</label>
+        <input type="text" name="name" placeholder="你的名字" required>
+        
+        <label>留言內容：</label>
+        <textarea name="content" rows="4" placeholder="輸入留言" required></textarea>
+        
+        <button type="submit">送出留言</button>
+    </form>
+
+    {% for msg in messages %}
+        <div class="message">
+            <p><strong>{{ msg.name }}</strong>: {{ msg.content }}</p>
+            <small>{{ msg.created_at }}</small>
+        </div>
+    {% endfor %}
+</body>
+</html>
